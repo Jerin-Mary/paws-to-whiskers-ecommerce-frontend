@@ -1,0 +1,20 @@
+/* =======footer======= */ 
+.footer{ 
+  font-family: "Poppins", 
+  sans-serif; font-weight: 400; 
+  color: #F5F5F5; 
+  padding: 25px; 
+  background:linear-gradient(to bottom right, #5c57a8, #4E4993 ); 
+} 
+
+.footer a{ 
+  text-decoration: none; 
+  color: #F5F5F5; 
+  padding: 10px; 
+  transition: all 0.4s ease;
+} 
+  
+.footer a:hover{ 
+  color: rgb(255, 97, 73); 
+  text-shadow: 0 6px 15px rgba(255, 97, 73, 0.292); 
+}

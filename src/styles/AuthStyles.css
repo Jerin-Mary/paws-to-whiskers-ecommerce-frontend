@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+/* ======== Register Page ========== */
+.register-page {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.4fr 0.6fr;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background:url("../styles/pattern-background.png") repeat;
+  background-size: 650px;
+  overflow: hidden;
+}
+
+.register-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 0;
+}
+
+.register-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Left Section ===== */
+.register-left {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-image {
+  width: 100%;
+  height: 90%;
+  border-radius: 20px;
+  margin-left: 90px;
+  object-fit: cover;
+  filter: brightness(0.9);
+  box-shadow: 0 10px 25px rgba(78, 73, 147, 0.25);
+  transition: all 0.3s ease;
+}
+
+.register-image:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.42);
+}
+
+/* ===== Right Section (Form) ===== */
+.register-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  /* width: 100%; */
+}
+
+.register-right h1 {
+  color: #4e4993;
+  font-weight: 600;
+  font-size:2.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.register-form {
+  background: rgba(255, 246, 246, 0.532);
+  padding: 30px 50px;
+  border-radius: 20px;
+  margin-left: -30px;
+  box-shadow: 0 10px 25px rgba(5, 5, 5, 0.379);
+  width: 120%;
+  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.register-form:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+}
+
+.register-form input {
+  border: 1.5px solid #d7d4f7;
+  border-radius: 10px;
+  padding: 10px 70px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.register-form input:focus {
+  border-color: #4e4993;
+  box-shadow: 0 0 8px rgba(76, 70, 150, 0.2);
+}
+
+/* Button */
+.register-form button {
+  position: relative;
+  overflow: hidden;
+  background-color: #FF6149;
+  color: #F5F5F5;
+  border: 2px solid #FF6149;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 10px;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+
+.register-form button:hover {
+  color: #2A2A2A;
+  border: 2px solid #FF6149;
+  background-color: #F5F5F5;
+}
+
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .register-page {
+    grid-template-columns: 1fr;
+    padding: 40px 0;
+  }
+
+  .register-left {
+    display: none;
+  }
+
+  .register-right {
+    padding: 20px;
+  }
+
+  .register-form {
+    max-width: 90%;
+  }
+}
+
+/* ---------login-button------- */
+.fp-btn{
+  background-color: #F5F5F5 !important;
+  border: none !important;
+  padding: 0px !important;
+  color:#4e4993 !important;
+}
+
+.fp-btn:hover {
+  color: #FF6149 !important;
+  border: none !important;
+  background-color: #F5F5F5;
+}
