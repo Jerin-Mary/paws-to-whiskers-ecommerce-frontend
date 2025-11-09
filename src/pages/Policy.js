@@ -111,7 +111,7 @@ const Policy = () => {
           </p>
           <p>
             For any privacy concerns, contact us at{" "}
-            <a href="#">
+            <a href="/contact">
               privacy@pawstowhiskers.com
             </a>
           </p>

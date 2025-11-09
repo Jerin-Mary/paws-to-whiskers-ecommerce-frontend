@@ -36,12 +36,8 @@ const addToCart = (product) => {
   }
 };
 
-  //initalp details
-  useEffect(() => {
-    if (params?.slug) getProduct();
-  }, [params?.slug]);
-
-  //getProduct
+  //initial details
+useEffect(() => {
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
@@ -53,6 +49,10 @@ const addToCart = (product) => {
       console.log(error);
     }
   };
+
+  if (params?.slug) getProduct();
+}, [params?.slug]);
+
 
   //get similar product
   const getSimilarProduct = async (pid, cid) => {

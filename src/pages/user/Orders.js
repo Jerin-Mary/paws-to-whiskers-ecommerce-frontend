@@ -9,7 +9,7 @@ const Orders = () => {
 
 
 const [orders, setOrders] = useState([]);
-const [auth, setAuth] = useAuth();
+const [auth] = useAuth();
 
 const getOrders = async () => {
     try {
