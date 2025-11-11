@@ -57,7 +57,7 @@ const CartPage = () => {
   }, [auth?.token]);
 
   //handle payments
- const handlePayment = async () => {
+const handlePayment = async () => {
   try {
     setLoading(true);
     const { nonce } = await instance.requestPaymentMethod();
@@ -66,20 +66,20 @@ const CartPage = () => {
       { nonce, cart }
     );
 
-    setLoading(false);
-
-    if (data?.success) {
-      toast.success("Payment Completed Successfully");
+    if (data?.ok) {
+      setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
       navigate("/dashboard/user/orders");
+      toast.success("Payment Completed Successfully");
     } else {
-      toast.error("Payment failed. Please try again.");
+      setLoading(false);
+      toast.error("Payment Failed. Please try again.");
     }
   } catch (error) {
-    console.error("Payment error:", error);
-    toast.error("Something went wrong during payment");
+    console.log("Payment error:", error);
     setLoading(false);
+    toast.error("Payment Failed");
   }
 };
 
