@@ -57,24 +57,31 @@ const CartPage = () => {
   }, [auth?.token]);
 
   //handle payments
-  const handlePayment = async () => {
-    try {
-      setLoading(true);
-      const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/product/braintree/payment`, {
-        nonce,
-        cart,
-      });
-      setLoading(false);
+ const handlePayment = async () => {
+  try {
+    setLoading(true);
+    const { nonce } = await instance.requestPaymentMethod();
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API}/api/v1/product/braintree/payment`,
+      { nonce, cart }
+    );
+
+    setLoading(false);
+
+    if (data?.success) {
+      toast.success("Payment Completed Successfully");
       localStorage.removeItem("cart");
       setCart([]);
       navigate("/dashboard/user/orders");
-      toast.success("Payment Completed Successfully ");
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
+    } else {
+      toast.error("Payment failed. Please try again.");
     }
-  };
+  } catch (error) {
+    console.error("Payment error:", error);
+    toast.error("Something went wrong during payment");
+    setLoading(false);
+  }
+};
 
 
   return (
