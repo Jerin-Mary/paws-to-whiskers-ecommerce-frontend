@@ -66,7 +66,7 @@ const handlePayment = async () => {
       { nonce, cart }
     );
 
-    if (data?.ok) {
+    if (data?.success) {
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
