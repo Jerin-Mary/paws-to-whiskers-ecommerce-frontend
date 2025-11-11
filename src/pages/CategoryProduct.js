@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Layout from "../components/Layout/Layout";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -37,11 +37,7 @@ const addToCart = (product) => {
   }
 };
 
-
-  useEffect(() => {
-    if (params?.slug) getPrductsByCat();
-  }, [params?.slug]);
-  const getPrductsByCat = async () => {
+ const getPrductsByCat = useCallback(async () => {
     try {
       const { data } = await axios.get(
         `${process.env.REACT_APP_API}/api/v1/product/product-category/${params.slug}`
@@ -51,7 +47,12 @@ const addToCart = (product) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [params.slug]); 
+
+  // Add getPrductsByCat to dependency array
+  useEffect(() => {
+    if (params?.slug) getPrductsByCat();
+  }, [params?.slug, getPrductsByCat]);
 
   return (
    <Layout title={`Category - ${category?.name}`}>

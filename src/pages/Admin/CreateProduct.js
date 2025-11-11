@@ -161,10 +161,7 @@ const CreateProduct = () => {
                   size="large"
                   showSearch
                   className="form-select mb-3"
-                  onChange={(value) => {
-                    setShipping(value);
-                  }}
-                >
+                  onChange={(e) => setShipping(e.target.value)} value={shipping}>
                   <Option value="0">No</Option>
                   <Option value="1">Yes</Option>
                 </Select>

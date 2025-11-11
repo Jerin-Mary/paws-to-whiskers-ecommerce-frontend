@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Layout from './../components/Layout/Layout';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -57,39 +57,41 @@ const HomePage = () => {
   }, []);
 
   // ===== Fetch products =====
-  const getAllProducts = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
-      );
-      setLoading(false);
-      setProducts(data.products);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
+  // ===== Fetch all products =====
+const getAllProducts = useCallback(async () => {
+  try {
+    setLoading(true);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
+    );
+    setLoading(false);
+    setProducts(data.products);
+  } catch (error) {
+    setLoading(false);
+    console.log(error);
+  }
+}, [page]);
 
   // ===== Load more products =====
-  const loadMore = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
-      );
-      setLoading(false);
-      setProducts([...products, ...data.products]);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+  const loadMore = useCallback(async () => {
+  try {
+    setLoading(true);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_API}/api/v1/product/product-list/${page}`
+    );
+    setLoading(false);
+    setProducts(prev => [...prev, ...data.products]); // safer, uses previous state
+  } catch (error) {
+    console.log(error);
+    setLoading(false);
+  }
+}, [page]);
 
-  useEffect(() => {
-    if (page === 1) return;
-    loadMore();
-  }, [page]);
+// ===== Watch for page changes =====
+useEffect(() => {
+  if (page === 1) return;
+  loadMore();
+}, [page, loadMore]);
 
   // ===== Handle filter =====
   const handleFilter = (value, id) => {
@@ -102,27 +104,28 @@ const HomePage = () => {
     setChecked(all);
   };
 
-  // ===== Watch for filter changes =====
-  useEffect(() => {
-    if (checked.length === 0 && radio.length === 0) {
-      getAllProducts();
-    } else {
-      filterProduct();
-    }
-  }, [checked, radio]);
 
-  // ===== Filtered products =====
-  const filterProduct = async () => {
-    try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/product/product-filters`,
-        { checked, radio }
-      );
-      setProducts(data?.products);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ // ===== Filtered products =====
+const filterProduct = useCallback(async () => {
+  try {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API}/api/v1/product/product-filters`,
+      { checked, radio }
+    );
+    setProducts(data?.products);
+  } catch (error) {
+    console.log(error);
+  }
+}, [checked, radio]);
+
+ // ===== Watch for filter changes =====
+useEffect(() => {
+  if (checked.length === 0 && radio.length === 0) {
+    getAllProducts();
+  } else {
+    filterProduct();
+  }
+}, [checked, radio, getAllProducts, filterProduct]);
 
   // ===== Hero Carousel Settings =====
   const settings = {

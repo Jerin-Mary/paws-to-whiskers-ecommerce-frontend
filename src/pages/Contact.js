@@ -29,7 +29,7 @@ const Contact = () => {
                 <FaWhatsapp />
               </div>
               <h5>Whatsapp</h5>
-              <p><a href="#" target="_blank" rel="noreferrer">+91 123456789</a></p>
+              <p>+91 123456789</p>
             </div>
           </div>
 
@@ -40,7 +40,7 @@ const Contact = () => {
                 <BiMailSend />
               </div>
               <h5>Email</h5>
-              <p><a href="#">help@pawstowhiskers.com</a></p>
+              <p><a href="/contact">help@pawstowhiskers.com</a></p>
             </div>
           </div>
 

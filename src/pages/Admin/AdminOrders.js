@@ -12,16 +12,16 @@ import { Select } from "antd";
 
 const AdminOrders = () => {
 
-const [status, setStatus] = useState([
+const [status] = useState([
     "Not Process",
     "Processing",
     "Shipped",
     "deliverd",
     "cancel",
   ]);
-  const [changeStatus, setCHangeStatus] = useState("");
+  // const [changeStatus, setCHangeStatus] = useState("");
   const [orders, setOrders] = useState([]);
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const getOrders = async () => {
     try {
       const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/all-orders`);
@@ -36,15 +36,25 @@ const [status, setStatus] = useState([
   }, [auth?.token]);
 
   const handleChange = async (orderId, value) => {
-    try {
-      const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/auth/order-status/${orderId}`, {
-        status: value,
-      });
-      getOrders();
-    } catch (error) {
-      console.log(error);
+  try {
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_API}/api/v1/auth/order-status/${orderId}`,
+      { status: value }
+    );
+
+    if (data?.success) {
+      toast.success("Order status updated successfully!");
+    } else {
+      toast.error(data?.message || "Failed to update order status.");
     }
-  };
+
+    // Refresh the orders list after status change
+    getOrders();
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    toast.error("Something went wrong while updating status.");
+  }
+};
 
 
 

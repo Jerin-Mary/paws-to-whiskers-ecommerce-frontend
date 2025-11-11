@@ -126,7 +126,14 @@ useEffect(() => {
                 >
                   More Details
                 </button>
-                <button className="btn btn-secondary ms-1">ADD TO CART</button>
+                <button className="btn btn-secondary ms-1"
+                 onClick={() => {
+        const updatedCart = [...cart, p];
+        setCart(updatedCart);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        toast.success(`${p.name} added to cart`);
+      }}
+                >ADD TO CART</button>
               </div>
             </div>
           ))}
